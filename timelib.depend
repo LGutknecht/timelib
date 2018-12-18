@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1545124864 source:d:\gutknecht_ifa82\git\timelib\main.c
+	<stdio.h>
+	<stdlib.h>
+
