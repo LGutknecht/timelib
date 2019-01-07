@@ -10,22 +10,35 @@
 
 int day_of_the_year(int day, int month, int year);
 int is_leapyear(int year);
-//int input_date(&day, &month, &year);
+int input_date(int *day,int *month,int *year);
 int get_days_for_month(int month, int year);
 int exist_date(int day, int month, int year);
 
-int main()
-{
-    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
-    return 0;
+int main(){
+    //Deklarieren der Variablen
+    int day = 0, month = 0, year = 0;
+
+    //Abfragen des Datums
+    input_date(&day, &month, &year);
+
+    //Berechnen und Ausgeben der Tage
+    day_of_the_year(day, month, year);
 }
+
 
 /**
 *   Nimmt ein Datum und rechnet es in die Anzahl der vergangenen Tage um
 **/
-int day_of_the_year(int day, int month, int year)
-{
-    return 0;
+int day_of_the_year(int day, int month, int year){
+    int days = 0;
+    //Addieren der Tage der Monate(Bis auf den aktuellen) auf days
+    for(int i = 0; i < (month - 1); i++){
+        days += get_days_for_month(month, year);
+    }
+    //Addieren der restlichen Tage des aktuellen Monats
+    days += day;
+
+    return days;
 }
 
 /**
@@ -64,7 +77,9 @@ int is_leapyear(int year){
     }
 }
 
-
+/**
+*   Funktion zur Ausgabe der ANzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
+**/
 int get_days_for_month(int month, int year){
 
 
@@ -92,9 +107,8 @@ int get_days_for_month(int month, int year){
     }
 }
 
-
 /**
-*   Prüft ob das Datum gültig ist.
+*   Funktion prüft ob das Datum gültig ist.
 **/
 int exist_date(int day, int month, int year){
 
@@ -109,4 +123,21 @@ int exist_date(int day, int month, int year){
     }
 
     return 1;
+}
+
+/**
+*   Funktion liest Datum ein
+**/
+int input_date(int *day,int *month,int *year){
+    do{
+        printf("Geben sie den Tag ein:");
+            scanf("%i", &*day);
+
+        printf("Geben sie den Monat ein:");
+            scanf("%i", &*month);
+
+        printf("Geben sie das Jahr ein:");
+            scanf("%i", &*year);
+
+    }while(exist_date(*day, *month, *year));
 }
