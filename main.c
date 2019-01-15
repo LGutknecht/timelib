@@ -27,7 +27,6 @@ int main(){
     printf("Der %i.%i.%i ist der %i. Tag des Jahres", day, month, year, day_of_the_year(day, month, year));
 }
 
-
 /**
 *   Nimmt ein Datum und rechnet es in die Anzahl der vergangenen Tage um
 **/
@@ -116,13 +115,21 @@ int get_days_for_month(int month, int year){
 **/
 int exist_date(int day, int month, int year){
 
-    //Überprüfen des Datums
+    //Überprüfen des Monats
     if(get_days_for_month(month, year) == -1){
+        printf("Ungueltiges Datum: Der Monat existiert nicht. \n");
+        return 0;
+    }
+
+    //Überprüfen des Tages
+    if(day > get_days_for_month(month, year)){
+        printf("Ungueltiges Datum: Die Anzahl der eingegebenen Tage liegt ausserhalb des Monats. \n");
         return 0;
     }
 
     //Überprüfen des Jahres
     if(year > 2400 || year < 1582){
+        printf("Ungueltiges Datum: Das Datum liegt nach dem Jahr 2400 oder vor dem Jahr 1582. \n");
         return 0;
     }
 
