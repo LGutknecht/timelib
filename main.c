@@ -15,6 +15,7 @@ int is_leapyear(int year);
 void input_date(int *day,int *month,int *year);
 int get_days_for_month(int month, int year);
 int exist_date(int day, int month, int year);
+void weekday(int day, int month, int year);
 
 int main(){
     //Deklarieren der Variablen
@@ -24,7 +25,9 @@ int main(){
     input_date(&day, &month, &year);
 
     //Berechnen und Ausgeben der Tage
-    printf("Der %i.%i.%i ist der %i. Tag des Jahres", day, month, year, day_of_the_year(day, month, year));
+    printf("Der %i.%i.%i ist der %i. Tag des Jahres \n", day, month, year, day_of_the_year(day, month, year));
+
+    weekday(day, month, year);
 }
 
 /**
@@ -142,13 +145,40 @@ int exist_date(int day, int month, int year){
 void input_date(int *day,int *month,int *year){
     do{
         printf("Geben sie den Tag ein:");
-            scanf("%i", &*day);
+            scanf("%i", day);
 
         printf("Geben sie den Monat ein:");
-            scanf("%i", &*month);
+            scanf("%i", month);
 
         printf("Geben sie das Jahr ein:");
-            scanf("%i", &*year);
+            scanf("%i", year);
 
     }while(exist_date(*day, *month, *year) == 0);
+}
+
+/**
+    Berechnet den Wochentag
+**/
+void weekday(int day, int month, int year){
+    int days = 0, weekday = 0;
+    for (int i = 1582; i < year; i++){
+        if(is_leapyear(year) == 1){
+            days += 366;
+        }
+        else{
+            days += 365;
+        }
+    }
+    days += day_of_the_year(day, month, year);
+    weekday = days % 7;
+
+    switch (weekday){
+        case 0: printf("Der Tag ist ein Freitag");   break;
+        case 1: printf("Der Tag ist ein Samstag");   break;
+        case 2: printf("Der Tag ist ein Sonntag");   break;
+        case 3: printf("Der Tag ist ein Montag");    break;
+        case 4: printf("Der Tag ist ein Dienstag");  break;
+        case 5: printf("Der Tag ist ein Mittwoch");  break;
+        case 6: printf("Der Tag ist ein Donnerstag");break;
+    }
 }
