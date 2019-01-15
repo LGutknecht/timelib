@@ -117,7 +117,7 @@ int get_days_for_month(int month, int year){
     case 8:
     case 10:
     case 12: return 31; break; //Monate mit 31 Tagen
-    case 2:  return 28;        //Februar im Normaljahr
+    case 2:  return 28; break; //Februar im Normaljahr
     case 4:
     case 6:
     case 9:
@@ -210,25 +210,25 @@ int weekday(int day, int month, int year){
 
 int week_of_year(int day, int month, int year){
 
-    int days = 0, weeks = 0, first_day = 0, leftover_days = 0;
+    int daysofyear = 0, weeks = 0, first_day = 0, leftover_days = 0;
 
     //Abfrage des Wochentags
     first_day = weekday(1,1,year);
 
     //Abfrage des Tag des Jahres
-    days = day_of_the_year(day, month, year);
+    daysofyear = day_of_the_year(day, month, year);
 
     //Wenn der Wochentag ein anderer Tag auﬂer Montag ist, befindet man sich in einer Kalenderwoche die
     //im letzten Jahr begonnen hat
     if (first_day != 1){
-        days -= first_day;
+        daysofyear -= first_day;
         weeks ++;
     }
     //Berechnen der Wochen
-    weeks += days / 7;
+    weeks += daysofyear / 7;
 
     //Berechnen der Resttage
-    leftover_days = days % 7;
+    leftover_days = daysofyear % 7;
 
     //Wenn Restage da sind und wir noch nicht die 52 Woche erreicht haben wird eine Woche addiert
     //Wenn die 52te Woche erreicht ist, ist die aktuelle Woche die erste Kalenderwoche des n‰chsten Jahres
