@@ -7,10 +7,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+/**
+*   Funktionsprototypen
+**/
 int day_of_the_year(int day, int month, int year);
 int is_leapyear(int year);
-int input_date(int *day,int *month,int *year);
+void input_date(int *day,int *month,int *year);
 int get_days_for_month(int month, int year);
 int exist_date(int day, int month, int year);
 
@@ -22,7 +24,7 @@ int main(){
     input_date(&day, &month, &year);
 
     //Berechnen und Ausgeben der Tage
-    day_of_the_year(day, month, year);
+    printf("Der %i.%i.%i ist der %i. Tag des Jahres", day, month, year, day_of_the_year(day, month, year));
 }
 
 
@@ -78,7 +80,7 @@ int is_leapyear(int year){
 }
 
 /**
-*   Funktion zur Ausgabe der ANzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
+*   Funktion zur Ausgabe der Anzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
 **/
 int get_days_for_month(int month, int year){
 
@@ -108,7 +110,9 @@ int get_days_for_month(int month, int year){
 }
 
 /**
-*   Funktion prüft ob das Datum gültig ist.
+    Funktion prüft ob das Datum gültig ist.
+    0: Datum existiert nicht
+    1: Datum existiert
 **/
 int exist_date(int day, int month, int year){
 
@@ -128,7 +132,7 @@ int exist_date(int day, int month, int year){
 /**
 *   Funktion liest Datum ein
 **/
-int input_date(int *day,int *month,int *year){
+void input_date(int *day,int *month,int *year){
     do{
         printf("Geben sie den Tag ein:");
             scanf("%i", &*day);
@@ -139,5 +143,5 @@ int input_date(int *day,int *month,int *year){
         printf("Geben sie das Jahr ein:");
             scanf("%i", &*year);
 
-    }while(exist_date(*day, *month, *year));
+    }while(exist_date(*day, *month, *year) == 0);
 }
