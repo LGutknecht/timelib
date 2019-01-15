@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
 *   Funktionsprototypen
 **/
@@ -15,11 +16,12 @@ int is_leapyear(int year);
 void input_date(int *day,int *month,int *year);
 int get_days_for_month(int month, int year);
 int exist_date(int day, int month, int year);
-void weekday(int day, int month, int year);
+int weekday(int day, int month, int year);
+int week_of_year(int day, int month, int year);
 
 int main(){
     //Deklarieren der Variablen
-    int day = 0, month = 0, year = 0;
+    int day = 0, month = 0, year = 0, day_of_week = 0;
 
     //Abfragen des Datums
     input_date(&day, &month, &year);
@@ -27,11 +29,25 @@ int main(){
     //Berechnen und Ausgeben der Tage
     printf("Der %i.%i.%i ist der %i. Tag des Jahres \n", day, month, year, day_of_the_year(day, month, year));
 
-    weekday(day, month, year);
+    day_of_week = weekday(day, month, year);
+
+    //Ausgabe des Wochentags
+    switch (day_of_week){
+        case 1: printf("Der Tag ist ein Montag \n");     break;
+        case 2: printf("Der Tag ist ein Dienstag \n");   break;
+        case 3: printf("Der Tag ist ein Mittwoch \n");   break;
+        case 4: printf("Der Tag ist ein Donnerstag \n"); break;
+        case 5: printf("Der Tag ist ein Freitag \n");    break;
+        case 6: printf("Der Tag ist ein Samstag \n");    break;
+        case 7: printf("Der Tag ist ein Sonntag \n");    break;
+    }
+
+    printf("Die Woche ist die %i. Kalenderwoche", week_of_year(day, month, year));
+
 }
 
 /**
-*   Nimmt ein Datum und rechnet es in die Anzahl der vergangenen Tage um
+    Nimmt ein Datum und rechnet es in die Anzahl der vergangenen Tage um
 **/
 int day_of_the_year(int day, int month, int year){
     int days = 0;
@@ -46,7 +62,7 @@ int day_of_the_year(int day, int month, int year){
 }
 
 /**
-*   Funktion zur Überprüfung auf ein Schaltjahr
+    Funktion zur Überprüfung auf ein Schaltjahr
 **/
 int is_leapyear(int year){
 
@@ -82,7 +98,7 @@ int is_leapyear(int year){
 }
 
 /**
-*   Funktion zur Ausgabe der Anzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
+    Funktion zur Ausgabe der Anzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
 **/
 int get_days_for_month(int month, int year){
 
@@ -143,6 +159,8 @@ int exist_date(int day, int month, int year){
 *   Funktion liest Datum ein
 **/
 void input_date(int *day,int *month,int *year){
+
+    //Einlesen desm Datums bis dieses durch exist_date als gültig ausgegeben wurde
     do{
         printf("Geben sie den Tag ein:");
             scanf("%i", day);
@@ -159,8 +177,10 @@ void input_date(int *day,int *month,int *year){
 /**
     Berechnet den Wochentag
 **/
-void weekday(int day, int month, int year){
-    int days = 0, weekday = 0;
+int weekday(int day, int month, int year){
+    int days = 0, dayofweek = 0;
+
+    //Addieren aller Tage bis aktuelles Jahr
     for (int i = 1582; i < year; i++){
         if(is_leapyear(year) == 1){
             days += 366;
@@ -169,16 +189,55 @@ void weekday(int day, int month, int year){
             days += 365;
         }
     }
+    //Addieren aller restlichen Tage des Jahre bis Datum
     days += day_of_the_year(day, month, year);
-    weekday = days % 7;
 
-    switch (weekday){
-        case 0: printf("Der Tag ist ein Freitag");   break;
-        case 1: printf("Der Tag ist ein Samstag");   break;
-        case 2: printf("Der Tag ist ein Sonntag");   break;
-        case 3: printf("Der Tag ist ein Montag");    break;
-        case 4: printf("Der Tag ist ein Dienstag");  break;
-        case 5: printf("Der Tag ist ein Mittwoch");  break;
-        case 6: printf("Der Tag ist ein Donnerstag");break;
+    //Berechnen des Modulo
+    dayofweek = days % 7;
+
+    //Formatieren von weekday in ein 1-7 Format wobei 1 Montag und 7 Sonntag ist
+    switch (dayofweek){
+        case 0: dayofweek = 5;   break;
+        case 1: dayofweek = 6;   break;
+        case 2: dayofweek = 7;   break;
+        case 3: dayofweek = 1;   break;
+        case 4: dayofweek = 2;   break;
+        case 5: dayofweek = 3;   break;
+        case 6: dayofweek = 4;   break;
     }
+    return dayofweek;
+}
+
+int week_of_year(int day, int month, int year){
+
+    int days = 0, weeks = 0, first_day = 0, leftover_days = 0;
+
+    //Abfrage des Wochentags
+    first_day = weekday(1,1,year);
+
+    //Abfrage des Tag des Jahres
+    days = day_of_the_year(day, month, year);
+
+    //Wenn der Wochentag ein anderer Tag außer Montag ist, befindet man sich in einer Kalenderwoche die
+    //im letzten Jahr begonnen hat
+    if (first_day != 1){
+        days -= first_day;
+        weeks ++;
+    }
+    //Berechnen der Wochen
+    weeks += days / 7;
+
+    //Berechnen der Resttage
+    leftover_days = days % 7;
+
+    //Wenn Restage da sind und wir noch nicht die 52 Woche erreicht haben wird eine Woche addiert
+    //Wenn die 52te Woche erreicht ist, ist die aktuelle Woche die erste Kalenderwoche des nächsten Jahres
+    if ((leftover_days > 0) && (weeks < 52)){
+        weeks ++;
+    }
+    else if ((leftover_days > 0) && (weeks = 52)){
+        weeks = 1;
+    }
+
+    return weeks;
 }
