@@ -53,7 +53,7 @@ int day_of_the_year(int day, int month, int year){
     int days = 0;
     //Addieren der Tage der Monate(Bis auf den aktuellen) auf days
     for(int i = 0; i < (month - 1); i++){
-        days += get_days_for_month(month, year);
+        days += get_days_for_month(i + 1, year);
     }
     //Addieren der restlichen Tage des aktuellen Monats
     days += day;
@@ -110,20 +110,20 @@ int get_days_for_month(int month, int year){
 
     //Ausgabe der Tage pro Monat
     switch (month){
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-    case 8:
-    case 10:
-    case 12: return 31; break; //Monate mit 31 Tagen
-    case 2:  return 28; break; //Februar im Normaljahr
-    case 4:
-    case 6:
-    case 9:
-    case 11: return 30; break; //Monate mit 30 Tagen
-    case 13: return 29; break; //Februar im Schaltjahr
-    default: return -1; break;
+        case 1: //return 31; break;
+        case 3: //return 31; break;
+        case 5: //return 31; break;
+        case 7: //return 31; break;
+        case 8: //return 31; break;
+        case 10: //return 31; break;
+        case 12: return 31; break; //Monate mit 31 Tagen
+        case 2: return 28; break; //Februar im Normaljahr
+        case 4: //return 30; break;
+        case 6: //return 30; break;
+        case 9: //return 30; break;
+        case 11: return 30; break; //Monate mit 30 Tagen
+        case 13: return 29; break; //Februar im Schaltjahr
+        default: return -1; break;
     }
 }
 
