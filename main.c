@@ -62,7 +62,7 @@ int day_of_the_year(int day, int month, int year){
 }
 
 /**
-    Funktion zur Überprüfung auf ein Schaltjahr
+    Funktion zur Überprüfung auf ein Schaltjahr !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 **/
 int is_leapyear(int year){
 
@@ -76,6 +76,10 @@ int is_leapyear(int year){
         //Prüfung Teilbarkeit durch 100
         if(year%100 == 0)
         {
+            return 0;
+        }
+        else
+        {
             //Prüfung Teilbarkeit durch 400
             if(year%400 == 0)
             {
@@ -85,10 +89,6 @@ int is_leapyear(int year){
             {
                 return 0;
             }
-        }
-        else
-        {
-            return 1;
         }
     }
     else
