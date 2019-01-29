@@ -20,30 +20,6 @@ int weekday(int day, int month, int year);
 int week_of_year(int day, int month, int year);
 
 int main(){
-    //Deklarieren der Variablen
-    int day = 0, month = 0, year = 0, day_of_week = 0;
-
-    //Abfragen des Datums
-    input_date(&day, &month, &year);
-
-    //Berechnen und Ausgeben der Tage
-    printf("Der %i.%i.%i ist der %i. Tag des Jahres \n", day, month, year, day_of_the_year(day, month, year));
-
-    day_of_week = weekday(day, month, year);
-
-    //Ausgabe des Wochentags
-    switch (day_of_week){
-        case 1: printf("Der Tag ist ein Montag \n");     break;
-        case 2: printf("Der Tag ist ein Dienstag \n");   break;
-        case 3: printf("Der Tag ist ein Mittwoch \n");   break;
-        case 4: printf("Der Tag ist ein Donnerstag \n"); break;
-        case 5: printf("Der Tag ist ein Freitag \n");    break;
-        case 6: printf("Der Tag ist ein Samstag \n");    break;
-        case 7: printf("Der Tag ist ein Sonntag \n");    break;
-    }
-
-    printf("Die Woche ist die %i. Kalenderwoche", week_of_year(day, month, year));
-
 }
 
 /**
@@ -62,39 +38,29 @@ int day_of_the_year(int day, int month, int year){
 }
 
 /**
-    Funktion zur Überprüfung auf ein Schaltjahr !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Funktion zur Überprüfung auf ein Schaltjahr
 **/
 int is_leapyear(int year){
-
     if(year < 1582){
         return -1;
     }
 
-    //Prüfung Teilbarkeit durch 4
-    if(year%4 == 0)
-        {
-        //Prüfung Teilbarkeit durch 100
-        if(year%100 == 0)
-        {
-            return 0;
-        }
-        else
-        {
-            //Prüfung Teilbarkeit durch 400
-            if(year%400 == 0)
-            {
+    //Überprüfung auf Teilung durch 4
+    if(year%4 == 0){
+        //Überprüfung auf Teilung durch 100
+        if(year%100 != 0){
+            //Überprüfung auf Teilung durch 400
+            if(year%400 == 0){
                 return 1;
             }
             else
-            {
                 return 0;
-            }
         }
+        else
+            return 1;
     }
     else
-    {
         return 0;
-    }
 }
 
 /**
