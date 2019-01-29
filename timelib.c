@@ -77,7 +77,7 @@ int get_days_for_month(int month, int year){
         case 13: return 29; break; //Februar im Schaltjahr
         default: return -1; break;
     }
-}
+}d
 
 /**
     Funktion prüft ob das Datum gültig ist.
