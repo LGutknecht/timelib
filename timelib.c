@@ -10,10 +10,22 @@
 
 
 /**
-    Nimmt ein Datum und rechnet es in die Anzahl der vergangenen Tage um
+    Die Funktion berechnet für ein gegebenes Datum des gregorianischen Kalenders bestehend aus Tag, Monat
+    und Jahr die Nummer des Tages, gezählt von Jahresbeginn (1. Januar) an. Schaltjahre werden bei der
+    Berechnung berücksichtigt. Ist das übergebene Datum ungültig, beträgt der Rückgabewert -1.
+    Übergabeparameter:
+    day: int
+    month: int
+    year: int
+
 **/
 int day_of_the_year(int day, int month, int year){
     int days = 0;
+
+    //Überprüfen des übergebenen Datums
+    if (exist_date(day, month, year) == 0){
+        return -1;
+    }
     //Addieren der Tage der Monate(Bis auf den aktuellen) auf days
     for(int i = 0; i < (month - 1); i++){
         days += get_days_for_month(i + 1, year);
@@ -25,7 +37,8 @@ int day_of_the_year(int day, int month, int year){
 }
 
 /**
-    Funktion zur Überprüfung auf ein Schaltjahr
+    Die Funktion überprüft, ob ein gegebenes Jahr nach den Regeln des gregorianischen Kalender ein Schaltjahr
+    ist. Bei Jahreszahlen vor dem Jahr 1582 wird ein Fehler zurückgegeben.
 **/
 int is_leapyear(int year){
     if(year < 1582){
@@ -50,7 +63,8 @@ int is_leapyear(int year){
 }
 
 /**
-    Funktion zur Ausgabe der Anzahl der Tage eines Monats unter Berücksichtigung der Schaltjahre
+    Die Funktion bestimmt für einen gegebenen Monat eines gegebenen Jahres, wie viele Tage der Monat hat. Der
+    Wert des Monats muss zwischen 1 und 12 liegen. Schaltjahre werden berücksichtigt.
 **/
 int get_days_for_month(int month, int year){
 
@@ -77,12 +91,11 @@ int get_days_for_month(int month, int year){
         case 13: return 29; break; //Februar im Schaltjahr
         default: return -1; break;
     }
-}d
+}
 
 /**
-    Funktion prüft ob das Datum gültig ist.
-    0: Datum existiert nicht
-    1: Datum existiert
+    Die Funktion überprüft, ob ein eingegebenes Datum gültig ist. Daten vor dem 1.1.1582 sind ungültig, genauso
+    wie alle Daten nach dem 31.12.2400.
 **/
 int exist_date(int day, int month, int year){
 
@@ -108,7 +121,8 @@ int exist_date(int day, int month, int year){
 }
 
 /**
-*   Funktion liest Datum ein
+    Die Funktion liest 3 Ganzzahlwerte (Integer) ein, für Tag, Monat und Jahr. Wenn das angegebene Datum
+    ungültig ist, wird erneut eingelesen, solange bis ein gültiges Datum eingegeben wurde.
 **/
 void input_date(int *day,int *month,int *year){
 
