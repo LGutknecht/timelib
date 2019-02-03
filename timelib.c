@@ -13,11 +13,6 @@
     Die Funktion berechnet für ein gegebenes Datum des gregorianischen Kalenders bestehend aus Tag, Monat
     und Jahr die Nummer des Tages, gezählt von Jahresbeginn (1. Januar) an. Schaltjahre werden bei der
     Berechnung berücksichtigt. Ist das übergebene Datum ungültig, beträgt der Rückgabewert -1.
-    Übergabeparameter:
-    day: int
-    month: int
-    year: int
-
 **/
 int day_of_the_year(int day, int month, int year){
     int days = 0;
