@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="64B7B5FFCBE01A87">
-  <PROJECT FORMAT="1.00" NAME="timelib" AUTHOR="Lukas Gutknecht" CREATED="2019.01.29 11:00:59" MODIFIED="2019.01.30 11:44:40">
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="1BFE58B71C8C1C70">
+  <PROJECT FORMAT="1.00" NAME="timelib" AUTHOR="Lukas Gutknecht" CREATED="2019.01.29 11:00:59" MODIFIED="2019.02.03 19:42:08">
     <DIAGRAMS>
-      <DIAGRAM FORMAT="1.00" ID="0" NAME="day_of_the_year(int day, int month, int year)" CREATED="2019.01.29 11:01:04" MODIFIED="2019.01.30 11:44:40">
+      <DIAGRAM FORMAT="1.00" ID="0" NAME="day_of_the_year(int day, int month, int year)" CREATED="2019.01.29 11:01:04" MODIFIED="2019.02.03 19:42:08">
         <LAYOUT FORMAT="1.00" COLUMNS="3" ROWS="11">
           <ENTRIES>
             <ENTRY COLUMN="0" ROW="3">
@@ -47,7 +47,7 @@
             </ENTRY>
             <ENTRY COLUMN="1" ROW="5">
               <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="10">
-                <TEXT><![CDATA[days += days += get_days_for_month(i + 1, year)]]></TEXT>
+                <TEXT><![CDATA[days += get_days_for_month(i + 1, year)]]></TEXT>
               </FIGURE>
             </ENTRY>
             <ENTRY COLUMN="1" ROW="6">
@@ -93,6 +93,12 @@
             <ENTRY COLUMN="2" ROW="7">
               <FIGURE SUBTYPE="PapComment" FORMAT="1.00" ID="16">
                 <TEXT><![CDATA[Addition der letzten verbleibenen Tage des letzten Monats]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="8">
+              <FIGURE SUBTYPE="PapComment" FORMAT="1.00" ID="31">
+                <TEXT><![CDATA[Rückgabe der Tage bei erfolgreichem ausführen
+Rückgabe von -1 bei falschem Datum]]></TEXT>
               </FIGURE>
             </ENTRY>
           </ENTRIES>
