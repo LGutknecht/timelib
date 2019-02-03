@@ -136,10 +136,16 @@ void input_date(int *day,int *month,int *year){
 }
 
 /**
-    Funktion zum Ermitteln des Wochentag
+    Funktion bestimmt welcher Wochentag dem gegebenen Datum entspricht. Sollte ein ungültiges Datum eingegeben
+    werden, wird -1 zurückgegeben.
 **/
 int weekday(int day, int month, int year){
     int days = 0, dayofweek = 0;
+
+    //Überprüfen ob das Datum gültig ist
+    if (exist_date(day, month, year) == 0){
+        return -1;
+    }
 
     //Addieren aller Tage bis aktuelles Jahr
     for (int i = 1582; i < year; i++){
@@ -169,11 +175,17 @@ int weekday(int day, int month, int year){
     return dayofweek;
 }
 /**
-*   Funktion zum Ermitteln der Kalenderwoche
+*   Funktion bestimmt die Kalenderwoche in der das gegebene Datum liegt. Sollte ein ungültiges Datum eingegeben
+    werden, wird -1 zurückgegeben.
 **/
 int week_of_year(int day, int month, int year){
 
     int daysofyear = 0, weeks = 0, first_day = 0, leftover_days = 0;
+
+    //Überprüfen ob das Datum gültig ist
+    if (exist_date(day, month, year) == 0){
+        return -1;
+    }
 
     //Abfrage des Wochentags
     first_day = weekday(1,1,year);
