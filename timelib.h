@@ -1,13 +1,22 @@
 #ifndef TIMELIB_H_INCLUDED
 #define TIMELIB_H_INCLUDED
 
-int day_of_the_year(int day, int month, int year);
-int is_leapyear(int year);
-void input_date(int *day,int *month,int *year);
-int get_days_for_month(int month, int year);
-int exist_date(int day, int month, int year);
-int weekday(int day, int month, int year);
-int week_of_year(int day, int month, int year);
+/**
+*   Initialisieren des Structs
+**/
+struct Date{
+    int day;
+    int month;
+    int year;
+    int foy;
+};
+int day_of_the_year(struct Date Date);
+int is_leapyear(struct Date Date);
+struct Date input_date();
+int get_days_for_month(struct Date Date);
+int exist_date(struct Date Date);
+int calc_weekday(struct Date Date);
+int calc_week_of_year(struct Date Date);
 
 
 #endif // TIMELIB_H_INCLUDED
