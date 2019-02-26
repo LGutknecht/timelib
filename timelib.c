@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include "timelib.h"
 
+#define MaxYear 2400
+#define MinYear 1582
 
 /**
     Die Funktion berechnet für ein gegebenes Datum des gregorianischen Kalenders bestehend aus Tag, Monat
@@ -16,7 +18,9 @@
     Berechnung berücksichtigt. Ist das übergebene Datum ungültig, beträgt der Rückgabewert -1.
 **/
 int day_of_the_year(struct Date Date){
+    //Deklarieren der Variabeln
     int days = 0;
+    struct Date TempDate;
 
     //Überprüfen des übergebenen Datums
     if (exist_date(Date) == 0){
@@ -24,7 +28,8 @@ int day_of_the_year(struct Date Date){
     }
     //Addieren der Tage der Monate(Bis auf den aktuellen) auf days
     for(int i = 0; i < (Date.month - 1); i++){
-        days += get_days_for_month(Date);
+        TempDate.month = i + 1;
+        days += get_days_for_month(TempDate);
     }
     //Addieren der restlichen Tage des aktuellen Monats
     days += Date.day;
@@ -37,7 +42,7 @@ int day_of_the_year(struct Date Date){
     ist. Bei Jahreszahlen vor dem Jahr 1582 wird ein Fehler zurückgegeben.
 **/
 int is_leapyear(struct Date Date){
-    if(Date.year < 1582){
+    if(Date.year < MinYear){
         return -1;
     }
     //Überprüfung auf Teilung durch 4
@@ -64,7 +69,7 @@ int is_leapyear(struct Date Date){
 **/
 int get_days_for_month(struct Date Date){
     //Deklarieren einer Monatsvaribale um nicht in eine referenz zu schreiben & Addieren von 1 um den richtigen Monat zu bekommen
-    int month = Date.month +1;
+    int month = Date.month;
 
     //Überprüfen des Falles eines Schaltjahres wegen Februar
     if(is_leapyear(Date) == 1 && month == 2){
@@ -109,7 +114,7 @@ int exist_date(struct Date Date){
     }
 
     //Überprüfen des Jahres
-    if(Date.year > 2400 || Date.year < 1582){
+    if(Date.year > MaxYear || Date.year < MinYear){
         printf("Ungueltiges Datum: Das Datum liegt nach dem Jahr 2400 oder vor dem Jahr 1582. \n");
         return 0;
     }
